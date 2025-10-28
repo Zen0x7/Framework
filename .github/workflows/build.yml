@@ -19,4 +19,4 @@ jobs:
           make -j4
           ctest  --output-on-failure --verbose
           cd ..
-          gcovr --filter='include/' --print-summary --sort uncovered-percent --gcov-ignore-parse-errors=negative_hits.warn
+          gcovr --filter='include/' --print-summary --sort=uncovered-percent --gcov-ignore-parse-errors=negative_hits.warn
