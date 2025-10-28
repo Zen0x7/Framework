@@ -1,0 +1,22 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/throttr/builder-alpine:1.87.0-debug
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug -DENABLE_TESTS=ON
+          make -j4
+          ctest  --output-on-failure --verbose
+          cd ..
+          gcovr --print-summary --sort-percentage
